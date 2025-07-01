@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import Agent from '../models/Agent';
 
 export const login = async (req: Request, res: Response) => {
