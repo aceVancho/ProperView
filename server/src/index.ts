@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { connectDB } from './db';
 import propertyRoutes from './routes/properties';
 import authRoutes from './routes/auth';
+import inquiryRoutes from './routes/inquiries';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/properties', propertyRoutes);
+app.use('/inquiry', inquiryRoutes);
 
 
 app.get('/', (req, res) => {
