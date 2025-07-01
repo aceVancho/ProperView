@@ -2,20 +2,25 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { connectDB } from '../db';
 import Property from '../models/Property';
+import Agent from '../models/Agent';
 
 dotenv.config({ path: './server/.env' });
 
 const seedDb = async () => {
+  // Connect
   await connectDB();
+  
+  // Clean
   await Property.deleteMany({});
-  await Property.insertMany(seedData);
-  console.log('✅ Seed complete!');
-  mongoose.disconnect();
-};
+  await Agent.deleteMany({});
+  
+  // Create Agents
+  const agentEmails = ['agent1@example.com', 'agent2@example.com', 'agent3@example.com', 'agent4@example.com'];
+  const createdAgents = await Agent.insertMany(agentEmails.map(email => ({ email })));
+  const agentMap: Record<string, mongoose.Types.ObjectId> = {};
+  createdAgents.forEach(agent => { agentMap[agent.email] = agent._id; });
 
-seedDb();
-
-const seedData = [
+  const seedData = [
   // --- Agent 1 ---
   {
     title: 'Modern Downtown Loft',
@@ -25,7 +30,7 @@ const seedData = [
     bathrooms: 2,
     description: 'Stylish loft in the heart of downtown.',
     status: 'active',
-    agentId: 'agent1',
+    agentId: agentMap['agent1@example.com'],
   },
   {
     title: 'Suburban Family Home',
@@ -35,7 +40,7 @@ const seedData = [
     bathrooms: 3,
     description: 'Spacious home with backyard and finished basement.',
     status: 'pending',
-    agentId: 'agent1',
+    agentId: agentMap['agent1@example.com'],
   },
   {
     title: 'Sunny Bungalow',
@@ -45,7 +50,7 @@ const seedData = [
     bathrooms: 1,
     description: 'Cozy single-family home with large deck.',
     status: 'active',
-    agentId: 'agent1',
+    agentId: agentMap['agent1@example.com'],
   },
   {
     title: 'Luxury Condo with Lake View',
@@ -55,7 +60,7 @@ const seedData = [
     bathrooms: 2,
     description: 'Corner unit with floor-to-ceiling windows.',
     status: 'sold',
-    agentId: 'agent1',
+    agentId: agentMap['agent1@example.com'],
   },
   {
     title: 'Charming Ranch Style',
@@ -65,7 +70,7 @@ const seedData = [
     bathrooms: 2,
     description: 'Updated kitchen and large fenced yard.',
     status: 'active',
-    agentId: 'agent1',
+    agentId: agentMap['agent1@example.com'],
   },
 
   // --- Agent 2 ---
@@ -77,7 +82,7 @@ const seedData = [
     bathrooms: 1,
     description: 'Compact city living close to transit.',
     status: 'active',
-    agentId: 'agent2',
+    agentId: agentMap['agent2@example.com'],
   },
   {
     title: 'Country Farmhouse',
@@ -87,7 +92,7 @@ const seedData = [
     bathrooms: 2,
     description: 'Sprawling land with barn and garden.',
     status: 'sold',
-    agentId: 'agent2',
+    agentId: agentMap['agent2@example.com'],
   },
   {
     title: 'Historic Townhome',
@@ -97,7 +102,7 @@ const seedData = [
     bathrooms: 2,
     description: 'Brick exterior with renovated interior.',
     status: 'pending',
-    agentId: 'agent2',
+    agentId: agentMap['agent2@example.com'],
   },
   {
     title: 'Modern Craftsman',
@@ -107,7 +112,7 @@ const seedData = [
     bathrooms: 3,
     description: 'Built in 2019 with energy-efficient features.',
     status: 'active',
-    agentId: 'agent2',
+    agentId: agentMap['agent2@example.com'],
   },
   {
     title: 'Riverfront Cabin',
@@ -117,7 +122,7 @@ const seedData = [
     bathrooms: 1,
     description: 'Perfect weekend getaway with water access.',
     status: 'active',
-    agentId: 'agent2',
+    agentId: agentMap['agent2@example.com'],
   },
 
   // --- Agent 3 ---
@@ -129,7 +134,7 @@ const seedData = [
     bathrooms: 2,
     description: 'Adobe-style home with mountain views.',
     status: 'pending',
-    agentId: 'agent3',
+    agentId: agentMap['agent3@example.com'],
   },
   {
     title: 'New Build Townhouse',
@@ -139,7 +144,7 @@ const seedData = [
     bathrooms: 2,
     description: 'Gated community with shared amenities.',
     status: 'active',
-    agentId: 'agent3',
+    agentId: agentMap['agent3@example.com'],
   },
   {
     title: 'Open Concept Ranch',
@@ -149,7 +154,7 @@ const seedData = [
     bathrooms: 2,
     description: 'Large open floor plan with vaulted ceilings.',
     status: 'sold',
-    agentId: 'agent3',
+    agentId: agentMap['agent3@example.com'],
   },
   {
     title: 'Bungalow with Solar',
@@ -159,7 +164,7 @@ const seedData = [
     bathrooms: 1,
     description: 'Eco-friendly upgrades throughout.',
     status: 'active',
-    agentId: 'agent3',
+    agentId: agentMap['agent3@example.com'],
   },
   {
     title: 'Lakeview Mobile Home',
@@ -169,7 +174,7 @@ const seedData = [
     bathrooms: 1,
     description: 'Affordable living in scenic location.',
     status: 'active',
-    agentId: 'agent3',
+    agentId: agentMap['agent3@example.com'],
   },
 
   // --- Agent 4 ---
@@ -181,7 +186,7 @@ const seedData = [
     bathrooms: 3,
     description: 'Classic style home with hardwood floors.',
     status: 'pending',
-    agentId: 'agent4',
+    agentId: agentMap['agent4@example.com'],
   },
   {
     title: 'Studio Flat Near Campus',
@@ -191,7 +196,7 @@ const seedData = [
     bathrooms: 1,
     description: 'Ideal for students or first-time buyers.',
     status: 'active',
-    agentId: 'agent4',
+    agentId: agentMap['agent4@example.com'],
   },
   {
     title: 'Seaside Cape Cod',
@@ -201,7 +206,7 @@ const seedData = [
     bathrooms: 2,
     description: 'Ocean breeze and beautiful sunsets.',
     status: 'sold',
-    agentId: 'agent4',
+    agentId: agentMap['agent4@example.com'],
   },
   {
     title: 'Historic Brick Rowhouse',
@@ -211,7 +216,7 @@ const seedData = [
     bathrooms: 2,
     description: 'Charming and full of character.',
     status: 'active',
-    agentId: 'agent4',
+    agentId: agentMap['agent4@example.com'],
   },
   {
     title: 'Mountain Retreat',
@@ -221,6 +226,13 @@ const seedData = [
     bathrooms: 3,
     description: 'Private location with breathtaking views.',
     status: 'active',
-    agentId: 'agent4',
+    agentId: agentMap['agent4@example.com'],
   },
 ];
+
+  await Property.insertMany(seedData);
+  console.log('✅ Seed complete!');
+  await mongoose.disconnect();
+};
+
+seedDb();
