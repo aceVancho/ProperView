@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/controllers/authcontroller.ts","./src/controllers/propertiescontroller.ts","./src/db/index.ts","./src/middleware/mockauth.ts","./src/models/agent.ts","./src/models/property.ts","./src/routes/auth.ts","./src/routes/properties.ts","./src/scripts/seed.ts"],"errors":true,"version":"5.8.3"}
