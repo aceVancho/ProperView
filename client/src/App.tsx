@@ -1,24 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import Login from './views/Login';
+import Dashboard from './views/Dashboard';
+import React from 'react';
+
+const ProtectedRoute: React.FC<{ children: React.JSX.Element }> = ({ children }) => {
+  const { auth } = useAuth();
+  return auth ? children : <Navigate to="/login" />;
+};
 
 function App() {
-  const [count, setCount] = useState(0)
-
-    return (
-    <div className="p-8">
-      <h1 className="text-4xl font-bold text-blue-600">
-        Tailwind is working!
-      </h1>
-      <p className="mt-4 text-lg text-gray-700">
-        If you see this styled correctly, Tailwind is good to go.
-      </p>
-      <button className="mt-6 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700">
-        Hover Me
-      </button>
-    </div>
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
-export default App
+export default App;
