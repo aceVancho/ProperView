@@ -14,12 +14,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 const Login: React.FC = () => {
-    const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
+    console.log('Login form submitted with email:', email);
     e.preventDefault();
     try {
       await login(email);
@@ -56,13 +57,12 @@ const Login: React.FC = () => {
             <p className="text-sm text-red-600 text-center">{error}</p>
           )}
             </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex-col gap-2">
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full mt-5">
             Login
           </Button>
-        </CardFooter>
+          </form>
+        </CardContent>
+
       </Card>
     </div>
   )

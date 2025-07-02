@@ -6,7 +6,7 @@ import React from 'react';
 
 const ProtectedRoute: React.FC<{ children: React.JSX.Element }> = ({ children }) => {
   const { auth, loading } = useAuth();
-  if (loading) return <div>Loading...</div>; // ✅ Don't redirect while loading
+  if (loading) return <div>Loading...</div>;
 
   return auth ? children : <Navigate to="/login" />;
 };
