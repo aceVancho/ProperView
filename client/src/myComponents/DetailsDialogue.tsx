@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import React from "react";
+import { useAuth } from '../context/AuthContext';
 
 type DialogueProps = {
   isDialogueOpen: boolean;
@@ -78,8 +79,10 @@ export const DetailsView = ({
 }: {
   onSendInquiry: () => void;
   props: PropertyCardProps;
-}) => (
-  <>
+}) => {
+  const { auth } = useAuth();
+  const isUserOwnedProperty = props.agentId === auth?.agent._id 
+return (  <>
     <DialogHeader>
       <DialogTitle>Property Details</DialogTitle>
       <DialogDescription>{props.address}</DialogDescription>
@@ -93,13 +96,13 @@ export const DetailsView = ({
       <p>Status: {props.status?.toUpperCase()}</p>
     </div>
     <DialogFooter className="sm:justify-start">
-      <Button onClick={onSendInquiry}>Send Inquiry</Button>
+      {!isUserOwnedProperty && <Button onClick={onSendInquiry}>Send Inquiry</Button>}
       <DialogClose asChild>
         <Button variant="default">Close</Button>
       </DialogClose>
     </DialogFooter>
-  </>
-);
+  </>)
+};
 
 import { useState } from "react";
 
