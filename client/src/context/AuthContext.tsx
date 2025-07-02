@@ -14,6 +14,7 @@ type AuthContextType = {
   auth: AuthState | null;
   login: (email: string) => Promise<void>;
   logout: () => void;
+  loading?: boolean;
 };
 
 
@@ -22,13 +23,25 @@ const tokenName = 'properViewAuthToken';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [auth, setAuth] = useState<AuthState | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem(tokenName);
-    if (stored) setAuth(JSON.parse(stored));
+    try {
+      const stored = localStorage.getItem(tokenName);
+      if (stored) {
+        const parsed = JSON.parse(stored) as AuthState;
+        console.log('Stored auth data:', parsed);
+        setAuth(parsed);
+      }
+    } catch (err) {
+      console.error('Failed to parse auth data:', err);
+      localStorage.removeItem(tokenName); // Clean up invalid entry
+    }
+    setLoading(false);
   }, []);
 
   const login = async (email: string) => {
+    console.log('Attempting login with email:', email);
     try {
       const res = await fetch('http://localhost:5001/auth/login', {
         method: 'POST',
@@ -42,6 +55,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const authData = { token: data.token, agent: data.agent };
       setAuth(authData);
       localStorage.setItem(tokenName, JSON.stringify(authData));
+      console.log('Login successful:', authData);
     } catch (err) {
       console.error('Login error:', err);
       throw err;
@@ -54,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ auth, login, logout }}>
+    <AuthContext.Provider value={{ auth, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

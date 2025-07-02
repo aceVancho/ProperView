@@ -17,6 +17,7 @@ if (!email) {
     }
 
     const token = `AGENT::${agent._id}`;
+    console.log(`Agent: ${agent.email} logged in with token: ${token}`);
     res.json({ token, agent: { _id: agent._id, email: agent.email } });
     return;
   } catch (err) {
