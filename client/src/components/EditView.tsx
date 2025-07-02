@@ -99,7 +99,7 @@ export const EditView = ({
           <DialogClose asChild>
             <Button variant="default">Cancel</Button>
           </DialogClose>
-          <Button onClick={handleSubmit}>Save Changes</Button>
+          <Button variant="secondary" onClick={handleSubmit}>Save Changes</Button>
         </div>
       </DialogFooter>
     </>

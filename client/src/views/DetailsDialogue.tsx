@@ -43,7 +43,7 @@ export const DetailsDialogue: React.FC<DialogueProps & PropertyCardProps> = ({
       }}
     >
       <DialogTrigger asChild>
-        <Button>More Details</Button>
+        <Button variant="outline">More Details</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">

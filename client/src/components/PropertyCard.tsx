@@ -47,7 +47,7 @@ export const PropertyCard = (props: PropertyCardProps & { _id?: string }) => {
           <>
             <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
               <DialogTrigger asChild>
-                <Button type="button" variant="default" size="icon">
+                <Button type="button" variant="secondary" size="icon">
                   <Pencil className="size-4" />
                   <span className="sr-only">Edit</span>
                 </Button>

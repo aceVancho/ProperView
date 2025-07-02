@@ -105,7 +105,7 @@ export const CreateListingBtn: React.FC = () => {
         {error && <p className="text-destructive text-sm">{error}</p>}
 
         <DialogFooter className="sm:justify-between pt-2">
-          <Button variant="default" onClick={handleSubmit}>
+          <Button variant="secondary" onClick={handleSubmit}>
             Submit
           </Button>
           <DialogClose asChild>
