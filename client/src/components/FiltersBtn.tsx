@@ -1,6 +1,4 @@
-import { PropertyCard } from "@/myComponents/PropertyCard";
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,

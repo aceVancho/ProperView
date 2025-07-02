@@ -1,29 +1,14 @@
-import { PropertyCardProps } from "./DetailsDialogue";
+import { PropertyCardProps } from "../views/DetailsDialogue";
 import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { DetailsBtn } from "./DetailsBtn";
-import { useAuth } from "../context/AuthContext";
-import {
-  Dialog,
   DialogClose,
-  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { Copy, Pencil } from "lucide-react";
 
 export const EditView = ({
   onClose,
@@ -56,10 +41,10 @@ export const EditView = ({
 
       if (!res.ok) throw new Error("Failed to update");
 
-      console.log("✅ Property updated");
+      console.log("Property updated");
       onClose();
     } catch (err) {
-      console.error("❌ Error updating:", err);
+      console.error("Error updating:", err);
     } finally {
         // TODO: Refresh properties
     }
@@ -78,10 +63,10 @@ export const EditView = ({
       });
 
       if (!res.ok) throw new Error("Failed to delete");
-      console.log("🗑️ Property deleted");
+      console.log("Property deleted");
       onClose();
     } catch (err) {
-      console.error("❌ Delete error:", err);
+      console.error("Delete error:", err);
     }
   };
 

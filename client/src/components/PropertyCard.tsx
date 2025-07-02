@@ -1,6 +1,5 @@
 import {
   Card,
-  CardAction,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -10,19 +9,12 @@ import { DetailsBtn } from "./DetailsBtn";
 import { useAuth } from "../context/AuthContext";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { Copy, Pencil } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { EditView } from "./EditView";
 
 interface PropertyCardProps {

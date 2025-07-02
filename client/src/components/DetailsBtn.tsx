@@ -1,5 +1,5 @@
 import React from "react";
-import { DetailsDialogue } from "./DetailsDialogue";
+import { DetailsDialogue } from "../views/DetailsDialogue";
 
 interface PropertyCardProps {
   address?: string;

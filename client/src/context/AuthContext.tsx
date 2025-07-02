@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
 type Agent = {
   _id: string;
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     } catch (err) {
       console.error('Failed to parse auth data:', err);
-      localStorage.removeItem(tokenName); // Clean up invalid entry
+      localStorage.removeItem(tokenName);
     }
     setLoading(false);
   }, []);
