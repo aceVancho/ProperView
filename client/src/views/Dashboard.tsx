@@ -1,3 +1,4 @@
+import { PropertyCard } from '@/myComponents/PropertyCard';
 import React, { useEffect, useState } from 'react';
 
 const Dashboard: React.FC = () => {
@@ -29,7 +30,7 @@ const Dashboard: React.FC = () => {
       <p>Welcome to the Proper View dashboard!</p>
       {properties.map((property: any) => (
         <div key={property.id} className="property-card">
-          <h2>{property.address}</h2>
+          <PropertyCard { ...property } />
         </div>
       ))} 
     </div>
