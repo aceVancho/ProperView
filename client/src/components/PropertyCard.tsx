@@ -7,15 +7,13 @@ import {
 } from "@/components/ui/card";
 import { DetailsBtn } from "./DetailsBtn";
 import { useAuth } from "../context/AuthContext";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { Pencil } from "lucide-react";
 import { EditView } from "./EditView";
+import { AlertCircleIcon, BadgeCheckIcon, CheckIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface PropertyCardProps {
   address?: string;
@@ -40,6 +38,14 @@ export const PropertyCard = (props: PropertyCardProps & { _id?: string }) => {
         <CardDescription>{`${props.bedrooms} bds | ${
           props.bathrooms
         } ba | ${props.status?.toUpperCase()}`}</CardDescription>
+        <CardDescription>
+          {isUserOwnedProperty && (
+            <Badge className="" variant="secondary">
+              <BadgeCheckIcon />
+              Agent-Owned
+            </Badge>
+          )}
+        </CardDescription>
       </CardHeader>
       <CardFooter className="gap-2">
         <DetailsBtn {...props} />

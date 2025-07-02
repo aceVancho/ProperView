@@ -94,7 +94,7 @@ const Dashboard: React.FC = () => {
   }, [filters]);
 
   return (
-    <div className="flex h-screen w-screen">
+    <div className="flex min-h-screen w-screen">
       <div className="max-w-screen-xl mx-auto p-4">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold">Proper View</h1>
